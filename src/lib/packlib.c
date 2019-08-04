@@ -474,7 +474,8 @@ GetPW(pwp, number)
 
        if (!fread((char *) &datum, sizeof(datum), 1, pwp->ifp))
        {
-           perror("(index fread failed)");
+           /* @@DRA DKDC why this keeps being hit... */
+           /*perror("(index fread failed)");*/
            return NULL;
        }
     }

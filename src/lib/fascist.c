@@ -8,7 +8,9 @@
 #include <sys/types.h>
 #include <errno.h>
 #include <limits.h>
+#ifndef __MINGW32__
 #include <pwd.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #ifdef HAVE_UNISTD_H
@@ -491,6 +493,7 @@ GTry(rawtext, password)
     return (0);
 }
 
+#ifndef __MINGW32__
 char *
 FascistGecosUser(char *password, const char *user, const char *gecos)
 {
@@ -693,6 +696,7 @@ FascistGecos(password, uid)
 
     return ptr;
 }
+#endif
 
 char *
 FascistLookUser(PWDICT *pwp, char *instring,
@@ -778,6 +782,7 @@ FascistLookUser(PWDICT *pwp, char *instring,
 	return _("it looks like a National Insurance number.");
     }
 
+#ifndef __MINGW32__
     if (user != NULL)
         ptr = FascistGecosUser(password, user, gecos);
     else
@@ -787,6 +792,7 @@ FascistLookUser(PWDICT *pwp, char *instring,
     {
 	return (ptr);
     }
+#endif
 
     /* it should be safe to use Mangle with its reliance on STRINGSIZE
        since password cannot be longer than TRUNCSTRINGSIZE;
